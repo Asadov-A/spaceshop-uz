@@ -227,7 +227,11 @@ function App() {
 
               <ol className="products-list">
                 <h3 className="cart-big-text">My Cart : </h3>
-                {cart.map((product, index) => (
+                {
+                  cart.length === 0 ? (
+                    <p className="cart-empty-text">Your cart is empty :(</p>
+                  ) : (
+                    cart.map((product, index) => (
                   <li key={index}>
                     <img src={product.image} alt={product.title} />
                     <h2>
@@ -242,13 +246,18 @@ function App() {
                         <button className="more-btn">+</button>
                       </div>
 
-                      <button className="delete-btn">
+                      <button onClick={() => {
+                        const newCart = cart.filter((_, i) => i !== index);
+                        setCart(newCart);
+                      }} className="delete-btn">
                         <i className="fa-solid fa-trash"></i>
                         Delete
                       </button>
                     </div>
                   </li>
-                ))}
+                ))
+                  )
+                }
               </ol>
 
 
